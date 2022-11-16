@@ -125,11 +125,11 @@ public boolean checkUserLogin(){
     }
     @Before(RequireLogin.class)
     public void test(){
-        String username=getSessionAttr("username");
+        //String username=getSessionAttr("username");
 //        if (username==null){
 //            redirect("/login");
 //        }else
-            renderHtml("<h2 style=\"color:green;\">你好" + username + ",欢迎再次访问！</h2>");
+            renderHtml("<h2 style=\"color:green;\">你好,欢迎再次访问！</h2>");
     }
     @Before(RequireLogin.class)
     @Admin
