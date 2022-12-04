@@ -7,6 +7,7 @@ import nxu.it.Admin;
 import nxu.it.RequireAdmin;
 import nxu.it.RequireLogin;
 import nxu.it.SysUser;
+import nxu.it.validator.LoginFormValidator;
 
 import java.util.List;
 
@@ -78,20 +79,10 @@ public class MainController extends Controller {
         set("character",username);
         renderTemplate("login-result.html");
     }
-
+@Before(LoginFormValidator.class)
     public void loginCheck() {
         String username = get("username");
         String password = get("password");
-        if (username == null||username.isBlank()){
-            set("errorMessage","用户名为空");
-            renderFreeMarker("login.ftl");
-            return;
-        }
-        if (password == null||password.isBlank()){
-            set("errorMessage","密码为空");
-            renderFreeMarker("login.ftl");
-            return;
-        }
         if (username.equals("admin") && password.equals("123456") || password.equals("nxu")) {
             SysUser sysUser=new SysUser(username);
             setSessionAttr(USER_SESSION_KEY,sysUser);
@@ -131,9 +122,9 @@ public boolean checkUserLogin(){
 //        }else
             renderHtml("<h2 style=\"color:green;\">你好,欢迎再次访问！</h2>");
     }
-    @Before(RequireLogin.class)
     @Admin
+    @Before(RequireLogin.class)
     public void admin(){
-        renderHtml("管理员页面");
+        renderHtml("<h2 style=\"color:blue;\">admin页面</h2>");
     }
 }
